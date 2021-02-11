@@ -11,11 +11,11 @@ int main(int argc, char *argv[], char *envp[])
         puts(argv[i]);
 	printf("\n");
 	}
-  for(int i = 0; i<argc; i++){
-	printf("Element of array envp = %d",i);
-	printf("\n");
-        puts(envp[i]);
-	printf("\n");
+	
+	int index = 0;
+	while (envp[index] != NULL){
+		printf("%s\n", envp[index++]);
+		printf("\n");
 	}
   return 0;
 }
