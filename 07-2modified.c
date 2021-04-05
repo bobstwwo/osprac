@@ -31,7 +31,7 @@ void *mythread(void *dummy)
 **/
 int main()
 {
-  pthread_t thid, mythid;
+  pthread_t thid, mythid, mythid2;
   int       result;
   //
   // Try to create a new thread of execution associated with the mythread () function.
@@ -49,12 +49,12 @@ int main()
   printf("Thread created, thid = %u\n", thid);
 
   // Adding a third thread of execution
-  result = pthread_create( &thid2, (pthread_attr_t *)NULL, mythread, NULL);
+  result = pthread_create( &mythid2, (pthread_attr_t *)NULL, mythread, NULL);
   if (result != 0) {
   printf ("Error on thread create (third thread), return value = %d\n", result);
   exit(-1);
   }
-  printf("Third thread created, thid2 = %d\n", thid2);
+  printf("Third thread created, thid2 = %d\n", mythid2);
 
   mythid = pthread_self();
 
@@ -68,6 +68,7 @@ int main()
   // distorting the results.
   //
   pthread_join(thid, (void **)NULL);
+  pthread_join(mythid2, (void **)NULL);
 
   return 0;
 }
