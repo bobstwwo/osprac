@@ -32,7 +32,7 @@ int main(int argc, char *argv[], char *envp[])
   // The opcode is -1.
   //
   mybuf.sem_num = 0;
-  mybuf.sem_op  = -1;
+  mybuf.sem_op  = -5;
   mybuf.sem_flg = 0;
 
   if (semop(semid, &mybuf, 1) < 0) {
