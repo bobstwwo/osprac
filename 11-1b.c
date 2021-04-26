@@ -17,7 +17,11 @@ int main(void)
   struct mymsgbuf
   {
     long mtype;
-    char mtext[81];
+    struct
+    {
+       short sinfo;
+       float finfo;
+    } info;
   } mybuf;
 
   if ((key = ftok(pathname,0)) < 0) {
@@ -36,9 +40,9 @@ int main(void)
     // with a maximum length of 81 characters
     // until a message of type LAST_MESSAGE is received.
     //
-    maxlen = 81;
+    maxlen = sizeof(mybuf.info);
 
-    if (( len = msgrcv(msqid, (struct msgbuf *) &mybuf, maxlen, 0, 0)) < 0) {
+    if (( len = msgrcv(msqid, &mybuf, maxlen, 0, 0)) < 0) {
       printf("Can\'t receive message from queue\n");
       exit(-1);
     }
@@ -52,7 +56,8 @@ int main(void)
       exit(0);
     }
 
-    printf("message type = %ld, info = %s\n", mybuf.mtype, mybuf.mtext);
+    printf("message type = %ld, sinfo = %i, finfo = %f\n",
+ mybuf.mtype, mybuf.info.sinfo, mybuf.info.finfo);
   }
 
   return 0;
